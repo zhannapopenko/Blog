@@ -99,8 +99,7 @@ const NewPost = () => {
                 }
 
                 setSubmitting(false);
-              }}
-            >
+              }}>
               <Form>
                 <Container>
                   <PostContainer>

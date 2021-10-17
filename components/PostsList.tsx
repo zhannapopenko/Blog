@@ -80,7 +80,9 @@ const PostsList = ({ posts }: Props) => {
               </TitleTypography>
               <PostBodyTypography>{post.body}</PostBodyTypography>
               <ReadButtonContainer>
-                <Button variant="outlined" href={"/posts/" + post.id}>Continue Reading</Button>
+                <Button variant="outlined" href={"/posts/" + post.id}>
+                  Continue Reading
+                </Button>
               </ReadButtonContainer>
             </PostItem>
             <Divider />

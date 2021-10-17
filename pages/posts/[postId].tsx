@@ -159,8 +159,7 @@ const PostItem = () => {
                 } else {
                   console.log("Post or comment not found.");
                 }
-              }}
-            >
+              }}>
               <Form>
                 <NewCommentContainer>
                   <Field

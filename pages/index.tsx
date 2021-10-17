@@ -8,7 +8,6 @@ import {
   Card,
   CardContent,
   Typography,
-  Link,
   Container,
   Button,
   styled,
@@ -70,7 +69,7 @@ const Home: NextPage = () => {
         </Card>
 
         <PostListContainer>
-          <PostsList posts={posts} />
+          <PostsList posts={posts as Post[]} />
         </PostListContainer>
       </HomePageContainer>
     </Page>

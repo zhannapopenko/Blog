@@ -4,8 +4,6 @@ import Head from "next/head";
 type Props = {
   title: string;
   children?: ReactNode;
-  noIndex?: boolean;
-  rssLink?: boolean;
 };
 
 const Page = ({ title, children }: Props) => {
