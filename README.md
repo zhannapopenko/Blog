@@ -1,3 +1,18 @@
+# Blog
+## This repository is about how to create a simple blog. 
+
+In the blog you can read articles, write comments and also write your own articles and posts.
+
+### I have built this app using:
+- TypeScript
+- JavaScript
+- Next.js
+- Material-UI
+- Styled Components
+- Axios
+- [Simple Blog Api](https://simple-blog-api.crew.red/)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
