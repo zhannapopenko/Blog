@@ -1,3 +1,5 @@
+import React from "react";
+import { Post } from "../lib/post";
 import {
   Button,
   Divider,
@@ -7,12 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
-import { Post } from "../lib/post";
 
-type Props = {
-  posts: Post[];
-};
 
 const PostItem = styled(ListItem)`
   display: flex;
@@ -27,6 +24,7 @@ const PostItem = styled(ListItem)`
   text-align: left;
   font-weight: 700;
   line-height: 1.2;
+  padding: 0.5rem;
   text-rendering: optimizeLegibility;
 `;
 
@@ -42,7 +40,10 @@ const TitleTypography = styled(Typography)`
   font-weight: 700;
   line-height: 1.2;
   text-rendering: optimizeLegibility;
-  margin-bottom: 0.5em;
+  margin: 0.5em 0;
+  a:hover {
+    color: grey;
+  };
 `;
 
 const PostBodyTypography = styled(Typography)`
@@ -55,13 +56,23 @@ const PostBodyTypography = styled(Typography)`
     sans-serif;
   font-size: 0.8em;
   font-weight: 400;
+  height: 4em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
 const ReadButtonContainer = styled(Box)`
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
+  margin: 0.3em;
 `;
+
+type Props = {
+  posts: Post[];
+};
 
 const PostsList = ({ posts }: Props) => {
   if (!posts) {
@@ -69,12 +80,12 @@ const PostsList = ({ posts }: Props) => {
   }
 
   return (
-    <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+    <List>
       <Divider />
-      {posts.map((post) => {
+      { posts.filter(post => post.title && post.body).map((post) => {
         return (
           <div key={post.id}>
-            <PostItem alignItems="flex-start">
+            <PostItem >
               <TitleTypography>
                 <a href={"/posts/" + post.id}>{post.title}</a>
               </TitleTypography>

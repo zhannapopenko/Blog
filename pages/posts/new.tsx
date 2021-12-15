@@ -71,7 +71,7 @@ const NewPost = () => {
         <Card sx={{ minWidth: "80%" }}>
           <CardContent>
             <TitleContainer>
-              <Button variant="outline" href="/">
+              <Button variant="outlined" href="/">
                 <Icon color="primary">arrow_back</Icon>
               </Button>
               <TitleTypography variant="h1">Create new post</TitleTypography>
@@ -91,11 +91,13 @@ const NewPost = () => {
                   newPost.title = values.title;
                   newPost.body = values.body;
 
-                  createPost(newPost).then((response) => {
+                  createPost(newPost).then(() => {
+                    newPost.title = "";
+                    newPost.body = "";
                     Router.push("/");
                   });
                 } else {
-                  console.log("Title not entered.");
+                  alert("Title not entered.");
                 }
 
                 setSubmitting(false);

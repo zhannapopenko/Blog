@@ -1,4 +1,3 @@
-import type { NextPage } from "next";
 import React from "react";
 import Page from "../components/layouts/Page";
 import PostsList from "../components/PostsList";
@@ -40,14 +39,11 @@ const PostListContainer = styled(Container)`
   margin-top: 2em;
 `;
 
-const Home: NextPage = () => {
-  const [posts, setPosts] = React.useState<Post[]>();
+interface Props {
+  posts: Post[];
+};
 
-  React.useEffect(() => {
-    getAllPosts().then((response) => {
-      setPosts(response.data?.reverse());
-    });
-  }, []);
+const Home = ({ posts }: Props) => {
 
   return (
     <Page title="Zhanna Popenko">
@@ -55,11 +51,11 @@ const Home: NextPage = () => {
         <Card>
           <InfoCardContent>
             <div>
-              <Typography variant="h3" component="div">
-                Hi, I am Zhanna
+              <Typography variant="h4" component="div">
+              Hi there
               </Typography>
-              <Typography variant="h5" color="text.secondary">
-                Front-End Developer
+              <Typography variant="h6" color="text.secondary">
+              Here you can read various posts and write your own post
               </Typography>
             </div>
             <CreatePostButton variant="contained" href="/posts/new">
@@ -77,3 +73,11 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getStaticProps(context: any) {
+  const res = await getAllPosts();
+  const posts = res.data?.reverse();
+  return {
+    props: { posts },
+  };
+}

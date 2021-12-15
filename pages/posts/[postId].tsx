@@ -1,8 +1,10 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Page from "../../components/layouts/Page";
 import { createComment, getPost } from "../../lib/api";
 import { Post } from "../../lib/post";
-import { useRouter } from "next/router";
+import { Comment } from "../../lib/comment";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import {
   Box,
   Button,
@@ -19,23 +21,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Field, Form, Formik, FormikHelpers } from "formik";
-import { Comment } from "../../lib/comment";
 
-interface CommentsFormFields {
-  newComment: string;
-}
 
-const PostContainer = styled(Container)`
-  min-width: 80%;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 2em;
-`;
+ const PostContainer = styled(Container)`
+//   min-width: 80%;
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin-top: 2em;
+ `;
 
 const NewCommentContainer = styled(Box)`
   width: 100%;
@@ -89,7 +86,8 @@ const CommentsTypography = styled(Typography)`
 
 const PostBodyTypography = styled(Typography)`
   width: 100%;
-  height: 100%;
+  min-height: 6em;
+  max-height:100%;
   text-align: center;
   line-height: 1.9em;
   color: #535358;
@@ -101,8 +99,12 @@ const PostBodyTypography = styled(Typography)`
 `;
 
 const CustomizedDivider = styled(Divider)`
-  margin: 1em 0 1em 0;
+  margin: 1em 0;
 `;
+
+interface CommentsFormFields {
+  newComment: string;
+}
 
 const PostItem = () => {
   const router = useRouter();
@@ -124,17 +126,17 @@ const PostItem = () => {
         <Card sx={{ minWidth: "80%" }}>
           <CardContent>
             <TitleContainer>
-              <Button variant="outline" href="/">
+              <Button variant="outlined" href="/">
                 <Icon color="primary">arrow_back</Icon>
               </Button>
-              <TitleTypography variant="h1">{post?.title}</TitleTypography>
+              <TitleTypography variant="h2">{post?.title}</TitleTypography>
             </TitleContainer>
             <CustomizedDivider />
             <PostBodyTypography variant="body1" color="text.secondary">
               {post?.body}
             </PostBodyTypography>
             <CustomizedDivider />
-            <CommentsTypography variant="h5">
+            <CommentsTypography variant="h6">
               Comments: {post?.comments?.length}
             </CommentsTypography>
             <Formik
@@ -143,19 +145,20 @@ const PostItem = () => {
               }}
               onSubmit={(
                 values: CommentsFormFields,
-                { setSubmitting }: FormikHelpers<CommentsFormFields>
+                { setSubmitting, resetForm }: FormikHelpers<CommentsFormFields>
               ) => {
                 if (post && values.newComment) {
                   const comment = new Comment();
                   comment.body = values.newComment;
                   comment.postId = post?.id;
 
-                  createComment(comment).then((response) => {
+                 createComment(comment).then(() => {
                     getPost(postId).then((response) => {
                       setPost(response.data);
                     });
                   });
                   setSubmitting(false);
+                  resetForm( values = "");
                 } else {
                   console.log("Post or comment not found.");
                 }
@@ -179,18 +182,18 @@ const PostItem = () => {
                 </NewCommentContainer>
               </Form>
             </Formik>
-            <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+            <List>
               <Divider />
               {post?.comments.map((comment) => {
                 return (
-                  <div key={post.id}>
+                  <Box key={post.id}>
                     <ListItem alignItems="flex-start">
                       <ListItemButton component="p">
                         <ListItemText primary={comment.body} />
                       </ListItemButton>
                     </ListItem>
                     <Divider />
-                  </div>
+                  </Box>
                 );
               })}
             </List>
