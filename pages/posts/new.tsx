@@ -1,5 +1,9 @@
 import * as React from "react";
 import Router from "next/router";
+import Page from "../../components/layouts/Page";
+import { createPost } from "../../lib/api";
+import { Post } from "../../lib/post";
+import { devices } from "../../sizes";
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import {
   Box,
@@ -13,14 +17,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import Page from "../../components/layouts/Page";
-import { createPost } from "../../lib/api";
-import { Post } from "../../lib/post";
-
-interface Values {
-  title: string;
-  body: string;
-}
 
 const PostContainer = styled(Container)`
   min-width: 80%;
@@ -47,11 +43,19 @@ const TitleTypography = styled(Typography)`
     "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   text-align: center;
-  font-size: 2.22222em;
+  font-size: 2.2em;
   color: #2f313d;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.2em;
   text-rendering: optimizeLegibility;
+  @media ${devices.tabletS} {
+    font-weight: 600;
+    font-size: 1.5em;
+  }
+  @media ${devices.mobileM} {
+    font-weight: 500;
+    font-size: 1.2em;
+  } ;
 `;
 
 const CustomizedDivider = styled(Divider)`
@@ -64,6 +68,11 @@ const ButtonsContainer = styled(Box)`
   align-items: center;
 `;
 
+interface Values {
+  title: string;
+  body: string;
+}
+
 const NewPost = () => {
   return (
     <Page title="Create new post">
@@ -74,7 +83,7 @@ const NewPost = () => {
               <Button variant="outlined" href="/">
                 <Icon color="primary">arrow_back</Icon>
               </Button>
-              <TitleTypography variant="h1">Create new post</TitleTypography>
+              <TitleTypography variant="h1"> Create new post</TitleTypography>
             </TitleContainer>
             <CustomizedDivider />
             <Formik
@@ -101,7 +110,8 @@ const NewPost = () => {
                 }
 
                 setSubmitting(false);
-              }}>
+              }}
+            >
               <Form>
                 <Container>
                   <PostContainer>

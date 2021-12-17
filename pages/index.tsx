@@ -3,6 +3,7 @@ import Page from "../components/layouts/Page";
 import PostsList from "../components/PostsList";
 import { getAllPosts } from "../lib/api";
 import { Post } from "../lib/post";
+import { devices } from "../sizes";
 import {
   Card,
   CardContent,
@@ -10,6 +11,7 @@ import {
   Container,
   Button,
   styled,
+  Box,
 } from "@mui/material";
 
 const HomePageContainer = styled(Container)`
@@ -17,7 +19,7 @@ const HomePageContainer = styled(Container)`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -25,41 +27,89 @@ const InfoCardContent = styled(CardContent)`
   width: 50em;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 2em;
+  padding: 1em;
+  @media ${devices.laptopS} {
+    width: 43.7em;
+  }
+  @media ${devices.tabletM} {
+    width: 34.3em;
+    padding: 0.5em;
+    flex-direction: column;
+  }
+  @media ${devices.tabletS} {
+    width: 26.2em;
+  }
+  @media ${devices.mobileM} {
+    width: 18.7em;
+  }
+  @media ${devices.mobileS} {
+    width: 15.6em;
+  } ;
+`;
+
+const TypographyContainer = styled(Typography)`
+  @media ${devices.tabletM} {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.2em;
+  }
+  @media ${devices.mobileS} {
+    font-size: 1em;
+  } ;
 `;
 
 const CreatePostButton = styled(Button)`
-  margin-left: 3em;
+  margin: 0 1em;
+  @media ${devices.laptopS} {
+    margin: 0 0.3em;
+  }
+  @media ${devices.tabletM} {
+    margin-top: 1em;
+  } ;
 `;
 
 const PostListContainer = styled(Container)`
   width: 50em;
-  margin-top: 2em;
+  margin: 1em auto;
+  @media ${devices.laptopS} {
+    width: 43.7em;
+  }
+  @media ${devices.tabletM} {
+    width: 34.3em;
+    margin: 0.5em auto;
+  }
+  @media ${devices.tabletS} {
+    width: 26.2em;
+  }
+  @media ${devices.mobileM} {
+    width: 18em;
+  }
+  @media ${devices.mobileS} {
+    width: 15em;
+  } ;
 `;
 
 interface Props {
   posts: Post[];
-};
+}
 
 const Home = ({ posts }: Props) => {
-
   return (
     <Page title="Zhanna Popenko">
       <HomePageContainer>
         <Card>
           <InfoCardContent>
-            <div>
-              <Typography variant="h4" component="div">
-              Hi there
-              </Typography>
-              <Typography variant="h6" color="text.secondary">
-              Here you can read various posts and write your own post
-              </Typography>
-            </div>
+            <Box>
+              <TypographyContainer variant="h4">Hi there</TypographyContainer>
+              <TypographyContainer variant="h6" color="text.secondary">
+                Here you can read various posts and write your own post
+              </TypographyContainer>
+            </Box>
             <CreatePostButton variant="contained" href="/posts/new">
-              Create new post
+              New post
             </CreatePostButton>
           </InfoCardContent>
         </Card>
